@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% if submitted %}
+      You have been added to Active Listings
+      {% else%}
+
+
+    <form action="" method="POST">
+        {% csrf_token %}
+     {{form.as_p}}
+        <input type="submit" value="Submit" class="btn btn-secondary">
+
+    </form>
+    {% endif %}
+    
+{% endblock %}

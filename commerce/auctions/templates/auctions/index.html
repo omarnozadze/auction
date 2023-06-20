@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {%for list in listing_list %}<br/>
+    
+    
+   <h1>{{list}}</h1>  
+  {{list.description}} </br><h4>{{ list.price }}</h4>
+{% if user.is_authenticated %}
+    <div><form action="{% url 'addBid' list.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="price">Add Bid</label>
+            <input type="number" min="0" name="newBid" placeholder="Add Bid">
+            <button type="submit" class="btn btn-secondary btn-sm">Add</button>
+        
+    </form>
+{% endif %} </br>
+    <div class="card mx-3 my-3" style="width: 18rem;"><div class="card-body"></div>
+    <img class="card-img-top" src="{{ list.image_url }}" alt="{{ list.image_url }}">
+    </div>
+     </br> <p>Creadet by: {{list.owner}}</br> Category : {{list.category}}</p> </div>
+    {% if user.is_authenticated %}
+<a href="{% url 'update-auction' list.id %}"class="btn btn-outline-secondary btn-sm">Update</a>
+<a href="{% url 'delete-auction' list.id %}" class="btn btn-outline-danger btn-sm">Delete</a></div>
+{%endif%}
+{% endfor %}
+
+
+    
+{% endblock %}
